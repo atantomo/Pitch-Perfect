@@ -47,6 +47,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     
     @IBAction func recordAudio(sender: UIButton) {
         
+        // In case record has been started, user can pause and resume recording
         if (isRecordCreated) {
             
             if (audioRecorder.recording) {
@@ -66,7 +67,6 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
             let recordingName = "my_audio.wav"
             let pathArray = [dirPath, recordingName]
             let filePath = NSURL.fileURLWithPathComponents(pathArray)
-            print(filePath)
             
             let session = AVAudioSession.sharedInstance()
             try! session.setCategory(AVAudioSessionCategoryPlayAndRecord)
@@ -83,7 +83,6 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     @IBAction func stopButtonTapped(sender: UIButton) {
         resetScreen()
         
-        // Inside func stopAudio(sender: UIButton)
         audioRecorder.stop()
         let audioSession = AVAudioSession.sharedInstance()
         try! audioSession.setActive(false)
@@ -100,6 +99,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     }
     
     private func resetScreen() {
+        
         stopButton.hidden = true
         recordingLabel.text = defaultText
         micButton.layer.opacity = 1.0
@@ -107,6 +107,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     }
     
     private func activateScreen() {
+        
         stopButton.hidden = false
         recordingLabel.text = recordingText
         micButton.layer.opacity = 0.7
